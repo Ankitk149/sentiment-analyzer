@@ -1,15 +1,13 @@
-import tensorflow as tf
+import numpy as np
 import pickle
+from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import TextVectorization
 
-# Load model
-model = tf.keras.models.load_model("/home/ankit/mvl/Sentiment-app/sentiment_model.keras")
+model = load_model("model.h5")
 
-# Load vocabulary
 with open("vectorizer.pkl", "rb") as f:
     vocab = pickle.load(f)
 
-# Recreate vectorizer
 vectorize_layer = TextVectorization(
     max_tokens=10000,
     output_mode='int',
@@ -18,7 +16,7 @@ vectorize_layer = TextVectorization(
 vectorize_layer.set_vocabulary(vocab)
 
 def predict(text):
-    text = tf.constant([text])
+    text = np.array([text])
     x = vectorize_layer(text)
     pred = model.predict(x)[0][0]
 
