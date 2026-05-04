@@ -2,7 +2,10 @@ import numpy as np
 import pickle
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import TextVectorization
+import os
 
+# DEBUG: check files exist
+print("Files in directory:", os.listdir())
 # ✅ correct model file name
 model = load_model("sentiment_model.keras")
 
